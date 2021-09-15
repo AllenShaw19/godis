@@ -3,11 +3,13 @@
 mkdir -p output/server output/client
 
 echo "build godis server"
-cd server
+cd server || exit
 ./build.sh
-cp -r output output/server
+cp -r output ../output/server
+cd ..
 
 echo "build godis client"
-cd client
+cd client || exit
 ./build.sh
-cp -r output output/client
+cp -r output ../output/client
+cd ..
