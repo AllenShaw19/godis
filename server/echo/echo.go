@@ -22,7 +22,7 @@ func (c *Client) Close() error {
 
 type Handler struct {
 	activeConns sync.Map
-	closing     atomic.Value
+	closing     atomic.Value // TODO: 直接使用uber atomic https://pkg.go.dev/go.uber.org/atomic#section-readme
 }
 
 func NewHandler() *Handler {

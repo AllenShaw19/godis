@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 PROJ=godis
-cd output/bin
+cd output/bin || exit
 ./$PROJ

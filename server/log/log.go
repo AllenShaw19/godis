@@ -1,16 +1,40 @@
 package log
 
-import "log"
+import "os"
 
-// TODO: 需要封装zap的logger
-func Info(format string, v ...interface{})  {
-	log.Printf(format, v)
+var logger = initLogger()
+var (
+	Info   = logger.Info
+	Warn   = logger.Warn
+	Error  = logger.Error
+	DPanic = logger.DPanic
+	Panic  = logger.Panic
+	Fatal  = logger.Fatal
+	Debug  = logger.Debug
+)
+
+func initLogger() *Logger {
+	return New(os.Stderr, InfoLevel)
 }
 
-func Error(format string, v ...interface{})  {
-	log.Printf(format, v)
+func Get() *Logger {
+	return logger
 }
 
-func Fatal(format string, v ...interface{})  {
-	log.Fatalf(format, v)
+func Sync() error {
+	if logger != nil {
+		return logger.Sync()
+	}
+	return nil
+}
+
+func ResetDefault(logger *Logger) {
+	logger = logger
+	Info = logger.Info
+	Warn = logger.Warn
+	Error = logger.Error
+	DPanic = logger.DPanic
+	Panic = logger.Panic
+	Fatal = logger.Fatal
+	Debug = logger.Debug
 }
