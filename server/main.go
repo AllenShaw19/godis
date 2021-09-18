@@ -16,10 +16,10 @@ type Handler interface {
 	Close() error
 }
 
-func ListenAndServe(listener net.Listener, handler Handler, closeChan <- chan struct{}) {
+func ListenAndServe(listener net.Listener, handler Handler, closeChan <-chan struct{}) {
 	// 监听关闭channel
 	go func() {
-		<-closeChan		// TODO:如果需要不同类型的通知。复用同一个chan,根据接收到的值进行switch
+		<-closeChan // TODO:如果需要不同类型的通知。复用同一个chan,根据接收到的值进行switch
 		log.Info("shutting down...")
 		_ = listener.Close()
 		_ = handler.Close()
